@@ -1,37 +1,38 @@
-const oneBox = document.createElement('div');
-const canvas = document.getElementById('canvas');
-const changeGridButton = document.getElementById('change-grid-size');
-const randomCheckbox = document.getElementById('randomcheckbox')
+const oneBox = document.createElement("div")
+const canvas = document.getElementById("canvas")
+const changeGridButton = document.getElementById("change-grid-size")
+const randomCheckbox = document.getElementById("randomcheckbox")
+const color = document.querySelector(".colorinput")
 
-const color = document.querySelector('.colorinput');
 
+createGrid(16)
 
-changeGridButton.addEventListener('click', () => {
-	let gridSize = prompt('What grid size u want?')
+changeGridButton.addEventListener("click", () => {
+	let gridSize = prompt("What grid size u want?")
+	console.log(gridSize)
+	if (gridSize == null) {
+		gridSize = 16
+	}
 	clearGrid()
 	createGrid(gridSize)
-
-
-	const everyPixel = document.querySelectorAll('.one-box');
-	everyPixel.forEach(pixel => pixel.addEventListener('mousemove', giveColor, (e) => {
-	} ))
-
 })
 
 function createGrid(grid){
 	canvas.style.cssText = `grid-template-columns:repeat(${grid},1fr)`
 	for (let i = 0; i < (grid * grid); i++) {
-		const oneBox = document.createElement('div');
-		oneBox.classList.add('one-box');
-		canvas.appendChild(oneBox);
-	} 	
+		const oneBox = document.createElement("div")
+		oneBox.classList.add("one-box")
+		canvas.appendChild(oneBox)
+	} 
+	const everyPixel = document.querySelectorAll(".one-box")
+	everyPixel.forEach(pixel => pixel.addEventListener("mousemove", giveColor))
 }
 
-//clears the grid if its full
+//clears the grid
 
 function clearGrid() {
-	if (canvas.querySelector('.one-box') != null) {
-	document.querySelectorAll('.one-box').forEach(e => canvas.removeChild(e));
+	if (canvas.querySelector(".one-box") != null) {
+		document.querySelectorAll(".one-box").forEach(e => canvas.removeChild(e))
 	}
 }
 
@@ -48,21 +49,21 @@ function giveColor() {
 		} else { 
 			this.style.backgroundColor = `${color.value}`
 		}
-}
+	}
 	return
 }
 
-let value;
+let value
 
-canvas.addEventListener('mousedown', (event) => {
-		value = true
-		event.preventDefault()
-	})
+canvas.addEventListener("mousedown", (event) => {
+	value = true
+	event.preventDefault()
+})
 
-canvas.addEventListener('mouseup', (event) => {
-		value = false
+canvas.addEventListener("mouseup", (event) => {
+	value = false
 
-	})
+})
 
 
 
